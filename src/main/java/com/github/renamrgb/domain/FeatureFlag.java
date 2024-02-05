@@ -1,6 +1,6 @@
 package com.github.renamrgb.domain;
 
-import com.github.renamrgb.infra.FeatureFlagEntity;
+import com.github.renamrgb.infra.entities.FeatureFlagEntity;
 import jakarta.validation.constraints.NotBlank;
 
 public record FeatureFlag(

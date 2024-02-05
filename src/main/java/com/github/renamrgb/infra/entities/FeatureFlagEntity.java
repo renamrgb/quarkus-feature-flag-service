@@ -1,4 +1,4 @@
-package com.github.renamrgb.infra;
+package com.github.renamrgb.infra.entities;
 
 import com.github.renamrgb.domain.FeatureFlag;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;

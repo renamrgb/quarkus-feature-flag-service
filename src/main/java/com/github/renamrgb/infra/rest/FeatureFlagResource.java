@@ -1,4 +1,4 @@
-package com.github.renamrgb.rest;
+package com.github.renamrgb.infra.rest;
 
 import com.github.renamrgb.application.FeatureFlagService;
 import com.github.renamrgb.application.exception.DomainException;
@@ -26,19 +26,12 @@ public class FeatureFlagResource {
     @Inject
     FeatureFlagService featureFlagService;
 
-    @POST
     @Transactional
+    @POST
     public Uni<Response> create(@Valid FeatureFlag featureFlag) {
         return featureFlagService.create(featureFlag)
                 .onItem().transform(entity -> Response.status(Response.Status.CREATED).entity(entity).build())
                 .onFailure().recoverWithItem(this::handleException);
-    }
-
-    @Transactional
-    @GET
-    @Path("exist/{id}")
-    public Uni<Boolean> existsById(@PathParam("id") Long id) {
-        return featureFlagService.existsById(id);
     }
 
     @Transactional
@@ -49,16 +42,6 @@ public class FeatureFlagResource {
             @NotBlank(message = "Param 'sellerIdentifier' is Required") @QueryParam("sellerIdentifier") String sellerIdentifier,
             @NotBlank(message = "Param 'module' is Required") @QueryParam("module") String module) {
         return featureFlagService.existsByParameters(flagName, sellerIdentifier, module);
-    }
-
-    @Transactional
-    @DELETE
-    @Path("/{id}")
-    public Uni<Response> deleteById(@PathParam("id") Long id) {
-        return featureFlagService.deleteById(id)
-                .map(deleted -> deleted ? Response.noContent().build() : buildNotFound("Feature flag not found by id"))
-                .onFailure().recoverWithItem(this::handleException);
-
     }
 
     @Transactional

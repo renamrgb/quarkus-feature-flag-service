@@ -1,4 +1,4 @@
-package com.github.renamrgb.rest.errorhandler;
+package com.github.renamrgb.infra.rest.errorhandler;
 
 import jakarta.validation.ValidationException;
 import jakarta.ws.rs.core.MediaType;
