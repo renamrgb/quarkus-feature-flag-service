@@ -1,20 +1,34 @@
 package com.github.renamrgb;
 
+import com.github.renamrgb.domain.FeatureFlag;
+import com.github.renamrgb.infra.rest.FeatureFlagResource;
+import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
+@TestHTTPEndpoint(FeatureFlagResource.class)
 class FeatureFlagsResourceTest {
+
     @Test
-    void testHelloEndpoint() {
+    void testCreateWithSuccess() {
+        FeatureFlag featureFlag = getFeatureFlag();
+
         given()
-          .when().get("/hello")
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .when()
+                .body(featureFlag)
+                .post()
           .then()
-             .statusCode(200)
-             .body(is("Hello RESTEasy"));
+                .statusCode(201);
+
     }
 
+    private FeatureFlag getFeatureFlag() {
+        return new FeatureFlag("flag", "identity", "module");
+    }
 }

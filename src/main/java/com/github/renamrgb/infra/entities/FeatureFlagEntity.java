@@ -25,6 +25,6 @@ public class FeatureFlagEntity extends PanacheEntityBase {
     }
 
     public FeatureFlag toDomain() {
-        return new FeatureFlag(id, flagName, sellerIdentifier, module);
+        return new FeatureFlag(flagName, sellerIdentifier, module);
     }
 }

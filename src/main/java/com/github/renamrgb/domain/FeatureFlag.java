@@ -4,7 +4,6 @@ import com.github.renamrgb.infra.entities.FeatureFlagEntity;
 import jakarta.validation.constraints.NotBlank;
 
 public record FeatureFlag(
-        Long id,
         @NotBlank(message = "'flagName' cannot be null or empty")
         String flagName,
 
