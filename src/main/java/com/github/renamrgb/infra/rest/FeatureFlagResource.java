@@ -1,6 +1,6 @@
 package com.github.renamrgb.infra.rest;
 
-import com.github.renamrgb.application.FeatureFlagService;
+import com.github.renamrgb.application.services.FeatureFlagService;
 import com.github.renamrgb.application.exception.DomainException;
 import com.github.renamrgb.domain.FeatureFlag;
 import io.smallrye.mutiny.Uni;
@@ -30,7 +30,7 @@ public class FeatureFlagResource {
     @POST
     public Uni<Response> create(@Valid FeatureFlag featureFlag) {
         return featureFlagService.create(featureFlag)
-                .onItem().transform(entity -> Response.status(Response.Status.CREATED).entity(entity).build())
+                .onItem().transform(entity -> Response.status(Response.Status.CREATED).build())
                 .onFailure().recoverWithItem(this::handleException);
     }
 

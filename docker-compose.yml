@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  redis:
+    image: "redis:6.2.7-alpine"
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_USERNAME=root
+      - REDIS_PASSWORD=root
+    volumes:
+      - /data
+
+  postgres:
+    image: "postgres:13-alpine"
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: feature-flag
+      POSTGRES_USER: feature
+      POSTGRES_PASSWORD: flag
+    volumes:
+      - /var/lib/postgresql/data
